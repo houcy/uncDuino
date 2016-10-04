@@ -1,39 +1,43 @@
-VERSION=1.0.6
-NOMBRE="UNC++Duino"
-PATHNWLINUX="/opt/nwjs-v0.12.3-linux-x64"
-PATHNWWINDOWS="/opt/nwjs-v0.12.3-win-ia32"
+NWVERSION=v0.12.3
+APPNAME=UNCDuino
+TARGETFOLDER=compiled
 
-compilar:
+copyBlockly:
 	python buildUNCDuino.py
 
-zipear:
-	mkdir -p compilados
-	rm -f compilados/${NOMBRE}.nw
-	cd src && zip -r ../compilados/${NOMBRE} *
-	mv compilados/${NOMBRE}.zip compilados/${NOMBRE}.nw
+packLinux: setOSToLinux setupOSFolder copyProject
+	mv ${OSFOLDER}/nw ${OSFOLDER}/${APPNAME}
 
-empaquetarLinux: zipear
-	rm -rf compilados/linux
-	mkdir -p compilados/linux
-	cp compilados/${NOMBRE}.nw compilados/linux
-	cp -r ${PATHNWLINUX}/* compilados/linux
-	rm compilados/linux/credits.html
-#	cd compilados/linux && cat ${NWEBKIT} ../${NOMBRE}.nw > ${NOMBRE} # No lo puedo hacer andar
-	echo "./nw ${NOMBRE}.nw" > compilados/linux/${NOMBRE}.sh # Esto esta porque no puedo hacer andar lo de arriba
-	chmod +x compilados/linux/${NOMBRE}.sh
-	cp -rf compilados/linux/* ~/Descargas/UNC++Duino-Linux # Para test de Alf
+packWindows: setOSToWin setupOSFolder copyProject
+	mv ${OSFOLDER}/nw.exe ${OSFOLDER}/${APPNAME}.exe
+	#cp -Rf ${OSFOLDER}/* ~/Descargas/${APPNAME}-Windows # For Alf Test
 
-empaquetarWindows: zipear
-	rm -rf compilados/windows
-	mkdir -p compilados/windows
-	cp -r ${PATHNWWINDOWS}/* compilados/windows
-	rm compilados/windows/credits.html
-	cd compilados/windows && cat nw.exe ../${NOMBRE}.nw > ${NOMBRE}.exe
-	rm compilados/windows/nw.exe
-	# rm -rf ~/Descargas/UNCWindows
+copyProject:
+	cp -Rf src/* ${OSFOLDER}
 
-	cp -rf compilados/windows/* ~/Descargas/UNC++Duino-Windows # Para test de Alf
+setupOSFolder: #Makes the folder, copies Node Webkit
+	rm -rf ${OSFOLDER}
+	mkdir -p ${OSFOLDER}
+	cp -r ${PATHNW}/* ${OSFOLDER}
+	rm ${OSFOLDER}/credits.html
 
-full: compilar zipear empaquetarWindows empaquetarLinux
+downloadNW:
+	mkdir -p nwjs
+	cd nwjs && wget "https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-win-ia32.zip"
+	cd nwjs && unzip nwjs-${NWVERSION}-win-ia32.zip
+	rm nwjs/nwjs-${NWVERSION}-win-ia32.zip
+	cd nwjs && wget "https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-linux-x64.tar.gz"
+	cd nwjs && tar zxf nwjs-${NWVERSION}-linux-x64.tar.gz
+	rm nwjs/nwjs-${NWVERSION}-linux-x64.tar.gz
 
-.PHONY: compilar
+setOSToLinux:
+	$(eval OSFOLDER=$(TARGETFOLDER)/linux)
+	$(eval PATHNW=nwjs/nwjs-$(NWVERSION)-linux-x64)
+
+setOSToWin:
+	$(eval OSFOLDER=$(TARGETFOLDER)/windows)
+	$(eval PATHNW=nwjs/nwjs-$(NWVERSION)-win-ia32)
+
+full: copyBlockly packWindows packLinux
+
+.PHONY: copyBlockly
