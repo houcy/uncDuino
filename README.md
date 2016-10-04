@@ -17,7 +17,7 @@ It provides a block-based language to code Arduino-based robots, and a feature t
 
 ## Online demo
 
-* For now, an online demo is accessible in this URL: [https://uncmasmas.github.io/uncDuino/src/](https://uncmasmas.github.io/uncDuino/src/) (It may change in the close future)
+* For now, an online demo is accessible in this URL: [https://uncmasmas.github.io/uncDuino/src/](https://uncmasmas.github.io/uncDuino/src/) (URL may change in the close future)
 
 ## Install (For teachers, students and general users)
 
