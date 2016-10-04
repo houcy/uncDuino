@@ -15,7 +15,22 @@ It provides a block-based language to code Arduino-based robots, and a feature t
 
 > Important note: Until [Multiplo](http://multiplo.org) doesn't release its HID Uploader v2.3 for linux, the automatic upload of the code (a.k.a the button ![upload](src/media/images/enviar.png)) **only works under windows**
 
-## For Developers
+## Online demo
+
+* For now, an online demo is accessible in this URL: [https://uncmasmas.github.io/uncDuino/src/](https://uncmasmas.github.io/uncDuino/src/) (It may change in the close future)
+
+## Install (For teachers, students and general users)
+
+1. [Download](https://github.com/uncmasmas/uncDuino/releases)
+1. Extract
+1. Run
+
+Explanation:
+
+* UNDuino-xxxx-Windows.zip: Complete version, with automatic upload. (Windows only)
+* UNDuino-xxxx-Web.zip: Version without automatic upload (runs in every Operative System)
+
+## Install (For Developers)
 
 ### Compile project (For Web)
 
