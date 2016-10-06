@@ -51,6 +51,23 @@ Blockly.Arduino.n6_move_foward = function() {
   return "avanzar();\n";
 };
 
+Blockly.Arduino.n6_move_backward = function() {
+  Blockly.Arduino.addMotorsSetUp();
+
+  var cfgArd = Blockly.Arduino.configuracion;
+  Blockly.Arduino.definitions_['define_backward'] = "void retroceder()\n"+
+    "{\n"+
+    "  motor0.setSpeed(-"+cfgArd.robot.velocidad()+");//input a simulation value to set the speed\n"+
+    "  motor1.setSpeed(-"+cfgArd.robot.velocidad()+");\n" +
+    "  delay(" + cfgArd.robot.delayPara(cfgArd.distanciaPorPaso) + ");\n" +
+    "  motor0.setSpeed(0);//input a simulation value to set the speed\n" +
+    "  motor1.setSpeed(0);\n" +
+    "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
+    "}\n";
+  return "retroceder();\n";
+};
+
+
 Blockly.Arduino.n6_turn_right = function() {
   Blockly.Arduino.addMotorsSetUp();
 
