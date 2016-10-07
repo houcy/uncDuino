@@ -3,10 +3,14 @@
 // Colaboración: Fundación Sadosky, proyecto Program.AR
 
 UNCDuino = {};
-UNCDuino.Version = 'v1.0.7';
+UNCDuino.Version = 'v1.0.8';
 
 UNCDuino.Historia =
 '\
+	Nuevo en versión 1.0.8:\
+     Agregado "Retroceder" a los bloques de movimiento.\
+		 Arreglo de bugs a los bloques de la categoría "Bloques N6"\
+		 Invertidas las imágenes de avanzar y retroceder\
 	Nuevo en versión 1.0.7:\
      Agregado "Frenar" a los bloques de movimiento. Primera version publicada\
 	Nuevo en versión 1.0.6:\
