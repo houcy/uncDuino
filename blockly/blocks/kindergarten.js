@@ -36,6 +36,19 @@ Blockly.Blocks['n6_move_foward'] = {
   }
 };
 
+Blockly.Blocks['n6_move_backward'] = {
+  helpUrl: '',
+  init: function() {
+    this.setColour(250);
+    this.appendDummyInput("")
+        .appendField(new Blockly.FieldImage("media/images/retroceder.png", 64, 64))
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip('Retrocede 20 cm :)');
+  }
+};
+
+
 Blockly.Blocks['n6_turn_left'] = {
   helpUrl: '',
   init: function() {
