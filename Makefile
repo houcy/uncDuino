@@ -7,9 +7,11 @@ copyBlockly:
 
 packLinux: setOSToLinux setupOSFolder copyProject
 	mv ${OSFOLDER}/nw ${OSFOLDER}/${APPNAME}
+	cp -R arduinoLinux ${OSFOLDER}/arduinoLinux
 
 packWindows: setOSToWin setupOSFolder copyProject
 	mv ${OSFOLDER}/nw.exe ${OSFOLDER}/${APPNAME}.exe
+	cp -R arduinoWindows ${OSFOLDER}/arduinoWindows
 	#cp -Rf ${OSFOLDER}/* ~/Descargas/${APPNAME}-Windows # For Alf Test
 
 copyProject:
