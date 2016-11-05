@@ -3,5 +3,4 @@ closure-library/*
 .directory
 compiled/
 nwjs/
-arduinoLinux/
-arduinoWindows/
+arduinoIDE/

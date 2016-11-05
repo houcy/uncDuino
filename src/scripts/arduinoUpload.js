@@ -73,7 +73,7 @@ Arduino.EnviadorOS.prototype = {
 
     path: function(){
       var path = require('path');
-      return path.resolve(path.dirname(process.execPath),this.carpetaArduino(),this.ejecutableArduino());
+      return path.resolve(path.dirname(process.execPath),'arduinoIDE',this.ejecutableArduino());
     },
 
     corresponde: function(){
@@ -89,9 +89,6 @@ Arduino.EnviadorWindows = function(){};
 Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
     platformName: function(){
       return 'win32';
-    },
-    carpetaArduino(){
-      return 'arduino-1.6.5-r5';
     },
     ejecutableArduino(){
       return 'arduino_debug.exe';
@@ -109,9 +106,6 @@ Arduino.EnviadorLinux = function(){};
 Arduino.EnviadorLinux.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
     platformName: function(){
       return 'linux';
-    },
-    carpetaArduino(){
-      return 'arduino-1.6.11';
     },
     ejecutableArduino(){
       return 'arduino';
