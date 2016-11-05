@@ -53,9 +53,9 @@ downloadDuinoPack:
 	cd arduinoIDE && rm ${ARDUINOVERSION}-linux32.tar.xz
 	cd arduinoIDE && mv ${ARDUINOVERSION} ${ARDUINOVERSION}-linux
 	@echo "=====> Copying DuinoPack extras"
-	@echo BIG TODO
+	@echo BIG TODO: para esto hay que revisar el duinopack para linux en http://multiplo.org/es/duinopack-1/ y compararlo con un arduinoIDE de linux, para meter en duinoPackExtras/linux las diferencias
 	@echo "=====> Installing DuinoPack for Linux"
-	@echo BIG TODO
+	@echo Hay que hacer unos gcc mágicos, en el readme del duinoPack están... no es trivial.
 
 setOSToLinux:
 	$(eval OSFOLDER=$(TARGETFOLDER)/linux)
