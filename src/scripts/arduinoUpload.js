@@ -6,6 +6,8 @@ Arduino = {
     Placa: function(idHW){
         this.idHW = idHW;
         this.correccionDireccionMotores = '';
+        this.pinM1 = 'M1_EN, M1_D0, M1_D1';
+        this.pinM0 = 'M0_EN, M0_D0, M0_D1';
     },
 
     Robot: function(ancho,largo,distanciaDelEjeAlFrente){
@@ -111,7 +113,7 @@ Arduino.EnviadorLinux.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
       return 'arduino';
     },
     comando: function(){
-        return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board multiplo:avr:' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+        return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board ' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
     },
     inicializar: function(){
       Arduino.puerto = "ttyUSB0";
@@ -137,18 +139,48 @@ Arduino.Robot.prototype = {
     },
 };
 
-
-//Defaults
 Arduino.enviadores = [Arduino.EnviadorWindows,Arduino.EnviadorLinux];
 Arduino.elegirEnviador();
-Arduino.placas.duinobot23 = new Arduino.Placa("DuinoBotv2x_1284_HID");
+
+///////////////////////////////////////////////////////////////
+// Placas
+///////////////////////////////////////////////////////////////
+
+// Placa DuinoBot 2.3
+Arduino.placas.duinobot23 = new Arduino.Placa("multiplo:avr:DuinoBotv2x_1284_HID");
 Arduino.placas.duinobot23.correccionDireccionMotores = "motor1.setClockwise(false);\n  motor0.setClockwise(false);\n ";
-Arduino.placas.duinobot12 = new Arduino.Placa("DuinoBotv1x_HID");
+
+// Placa DuinoBot 1.2
+Arduino.placas.duinobot12 = new Arduino.Placa("multiplo:avr:DuinoBotv1x_HID");
 Arduino.placas.duinobot12.correccionDireccionMotores = "motor1.setClockwise(false);\n ";
+
+// Placa Arduino Nano
+Arduino.placas.nano = new Arduino.Placa("arduino:avr:nano");
+Arduino.placas.nano.pinM0 = '3, 4, 2';
+Arduino.placas.nano.pinM1 = '6, 5, 7';
+
+// Placa Default
 Arduino.placaElegida = Arduino.placas.duinobot23;
+
+///////////////////////////////////////////////////////////////
+// Robots
+///////////////////////////////////////////////////////////////
+
+// Multiplo N6 Max
 Arduino.robots.multiploN6MAX = new Arduino.Robot(22,20,6);
+
+// Multiplo N6
 Arduino.robots.multiploN6 = Arduino.robots.multiploN6MAX; //Cambiar por new Robot con las medidas
+
+// Multiplo Tomy
+Arduino.robots.tomy = new Arduino.Robot(22,20,6); //ancho largo y distanciaDelEjeAlFrente
+
+// Robot elegido:
 Arduino.robotElegido = Arduino.robots.multiploN6MAX;
+
+///////////////////////////////////////////////////////////////
+// Configuracion
+///////////////////////////////////////////////////////////////
 
 Blockly.Arduino.configuracion = {
     placa: Arduino.placaElegida,
@@ -161,6 +193,10 @@ Blockly.Arduino.configuracion = {
     esperaEntreInstrucciones: 2000, //en milisegundos
     correccionDistanciaDeteccion: 0, // para el ultrasonido
 };
+
+///////////////////
+// Funciones usadas desde el index
+///////////////////
 
 function mapFromDom(ids,to,transform){
     if(!transform) transform = function(x){return x};

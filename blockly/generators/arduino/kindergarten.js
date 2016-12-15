@@ -28,11 +28,12 @@ goog.require('Blockly.Arduino.Melodies');
 
 
 Blockly.Arduino.addMotorsSetUp = function(){
+  var cfgArd = Blockly.Arduino.configuracion;
   Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
-  Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
-  Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
+  Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(" + cfgArd.placaElegida.pinM0 + ");\n";
+  Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(" + cfgArd.placaElegida.pinM1 + ");\n";
   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
-  
+
 };
 
 Blockly.Arduino.n6_move_foward = function() {
@@ -111,18 +112,18 @@ Blockly.Arduino.n6_melody = function() {
 
   Blockly.Arduino.definitions_['define_melody'] = Blockly.Arduino.Pitches;
 
-  Blockly.Arduino.definitions_['define_melody_' + song.name() + '_init'] =  
+  Blockly.Arduino.definitions_['define_melody_' + song.name() + '_init'] =
     "int melody" + song.name() + "[] = {" + song.noteNames().join(", ") + "};\n" +
     "int durations" + song.name() + "[] = {" + song.noteDurations().join(", ") + "};\n";
 
-  Blockly.Arduino.definitions_['define_melody_' + song.name() + '_code'] = 
+  Blockly.Arduino.definitions_['define_melody_' + song.name() + '_code'] =
       "void melodia" + song.name() + "(){\n" +
       "  for (int thisNote = 0; thisNote < " + song.length() + "; thisNote++) {\n" +
       "    int noteDuration = 1000 / durations" + song.name() + "[thisNote];\n" +
       "    tone(SPEAKER, melody" + song.name() + "[thisNote],noteDuration);\n" +
       "    int pauseBetweenNotes = noteDuration * 1.30; \n" +
       "    delay(pauseBetweenNotes);\n" +
-      "    noTone(SPEAKER);\n" + 
+      "    noTone(SPEAKER);\n" +
       "  }\n" +
       "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
       "}\n";
@@ -132,7 +133,7 @@ Blockly.Arduino.n6_melody = function() {
 
 Blockly.Arduino.ultrasonido = {};
 Blockly.Arduino.ultrasonido.corregirCM = function(deseado){
-  // Empíricamente cuando pongo 18cm sensa 21cm. 
+  // Empíricamente cuando pongo 18cm sensa 21cm.
   // Este cálculo de corrección puede no ser lineal, sin embargo.
   return Math.round(21/18*deseado);
 };
@@ -159,7 +160,7 @@ Blockly.Arduino.object_ducker = function() {
 Blockly.Arduino.run_button_push = function(){
   Blockly.Arduino.setups_['setup_button']= "pinMode(RUN_SW, INPUT_PULLUP);";
 
-  var statements_if = Blockly.Arduino.statementToCode(this, 'IF');  
+  var statements_if = Blockly.Arduino.statementToCode(this, 'IF');
   return 'if(!(digitalRead(RUN_SW))){\n' + statements_if + '\n}';
 };
 
