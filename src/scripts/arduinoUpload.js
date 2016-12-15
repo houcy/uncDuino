@@ -96,7 +96,7 @@ Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
       return 'arduino_debug.exe';
     },
     comando: function(){
-      return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board multiplo:avr:' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+      return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board ' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
     },
     inicializar: function(){
       Arduino.puerto = "COM1";
@@ -182,6 +182,8 @@ Arduino.robotElegido = Arduino.robots.multiploN6MAX;
 // Configuracion
 ///////////////////////////////////////////////////////////////
 
+// Nota: esto debe estar actualizado con la configuración por defecto en index.html
+// para tener una buena experiencia de usuario.
 Blockly.Arduino.configuracion = {
     placa: Arduino.placaElegida,
     robot: Arduino.robotElegido,

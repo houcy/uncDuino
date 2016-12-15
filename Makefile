@@ -1,31 +1,33 @@
 NWVERSION=v0.12.3
 ARDUINOVERSION=arduino-1.6.5-r5
 APPNAME=UNCDuino
-TARGETFOLDER=compiled
+COMPILEDFOLDER=compiled
 
-copyBlockly:
+copyBlockly: closure-library
 	python buildUNCDuino.py
 
-packLinux: setOSToLinux setupOSFolder copyProject
-	mv ${OSFOLDER}/nw ${OSFOLDER}/${APPNAME}
+closure-library:
+		git clone https://github.com/google/closure-library
 
-packWindows: setOSToWin setupOSFolder copyProject
-	mv ${OSFOLDER}/nw.exe ${OSFOLDER}/${APPNAME}.exe
-	#cp -Rf ${OSFOLDER}/* ~/Descargas/${APPNAME}-Windows # For Alf Test
+packLinux: copyBlockly setOSToLinux setupTargetFolder copyProject
+	mv ${TARGETFOLDER}/nw ${TARGETFOLDER}/${APPNAME}
+
+packWindows: copyBlockly setOSToWin setupTargetFolder copyProject
+	mv ${TARGETFOLDER}/nw.exe ${TARGETFOLDER}/${APPNAME}.exe
+	#cp -Rf ${TARGETFOLDER}/* ~/Descargas/${APPNAME}-Windows # For Alf Test
 
 copyProject:
-	cp -Rf src/* ${OSFOLDER}
+	cp -Rf src/* ${TARGETFOLDER}
 
-setupOSFolder: #Makes the folder, copies Node Webkit
-	rm -rf ${OSFOLDER}
-	mkdir -p ${OSFOLDER}
-	echo "=====> Copying NodeWebkit for ${OSNAME}"
-	cp -r ${PATHNW}/* ${OSFOLDER}
-	rm ${OSFOLDER}/credits.html
-	cp -R arduinoIDE/${ARDUINOVERSION}-${OSNAME} ${OSFOLDER}/arduinoIDE
+setupTargetFolder: #Makes the folder, copies Node Webkit
+	rm -rf ${TARGETFOLDER}
+	mkdir -p ${TARGETFOLDER}
+	@echo "=====> Copying NodeWebkit for ${OSNAME}"
+	cp -r ${PATHNW}/* ${TARGETFOLDER}
+	rm ${TARGETFOLDER}/credits.html
+	cp -R arduinoIDE/${ARDUINOVERSION}-${OSNAME} ${TARGETFOLDER}/arduinoIDE
 
-
-downloadNW:
+nwjs:
 	mkdir -p nwjs
 	@echo "=====> Downloading Node Webkit for Windows"
 	cd nwjs && wget "https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-win-ia32.zip"
@@ -36,9 +38,9 @@ downloadNW:
 	cd nwjs && tar zxf nwjs-${NWVERSION}-linux-x64.tar.gz
 	rm nwjs/nwjs-${NWVERSION}-linux-x64.tar.gz
 
-initialSetup: downloadNW downloadDuinoPack
+initialSetup: nwjs arduinoIDE
 
-downloadDuinoPack:
+arduinoIDE:
 	mkdir -p arduinoIDE/
 	@echo "=====> Downloading ArduinoIDE for Windows"
 	cd arduinoIDE && wget https://downloads.arduino.cc/${ARDUINOVERSION}-windows.zip
@@ -58,15 +60,19 @@ downloadDuinoPack:
 	@echo Hay que hacer unos gcc mágicos, en el readme del duinoPack están... no es trivial.
 
 setOSToLinux:
-	$(eval OSFOLDER=$(TARGETFOLDER)/linux)
+	$(eval TARGETFOLDER=$(COMPILEDFOLDER)/linux)
 	$(eval OSNAME=linux)
 	$(eval PATHNW=nwjs/nwjs-$(NWVERSION)-linux-x64)
 
 setOSToWin:
-	$(eval OSFOLDER=$(TARGETFOLDER)/windows)
+	$(eval TARGETFOLDER=$(COMPILEDFOLDER)/windows)
 	$(eval OSNAME=windows)
 	$(eval PATHNW=nwjs/nwjs-$(NWVERSION)-win-ia32)
 
-full: copyBlockly packWindows packLinux
+clean: # CAREFULLY... Will remove arduinoIDE, will need to install everything again
+	rm -rf nwjs
+	rm -rf arduinoIDE
+	rm -rf closure-library
+	rm -rf ${COMPILEDFOLDER}
 
 .PHONY: copyBlockly

@@ -30,8 +30,8 @@ goog.require('Blockly.Arduino.Melodies');
 Blockly.Arduino.addMotorsSetUp = function(){
   var cfgArd = Blockly.Arduino.configuracion;
   Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
-  Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(" + cfgArd.placaElegida.pinM0 + ");\n";
-  Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(" + cfgArd.placaElegida.pinM1 + ");\n";
+  Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(" + cfgArd.placa.pinM0 + ");\n";
+  Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(" + cfgArd.placa.pinM1 + ");\n";
   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
 
 };
