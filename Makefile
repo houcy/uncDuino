@@ -9,10 +9,10 @@ copyBlockly: closure-library
 closure-library:
 		git clone https://github.com/google/closure-library
 
-packLinux: copyBlockly setOSToLinux setupTargetFolder copyProject
+packLinux: setOSToLinux setupTargetFolder copyProject
 	mv ${TARGETFOLDER}/nw ${TARGETFOLDER}/${APPNAME}
 
-packWindows: copyBlockly setOSToWin setupTargetFolder copyProject
+packWindows: setOSToWin setupTargetFolder copyProject
 	mv ${TARGETFOLDER}/nw.exe ${TARGETFOLDER}/${APPNAME}.exe
 	#cp -Rf ${TARGETFOLDER}/* ~/Descargas/${APPNAME}-Windows # For Alf Test
 
