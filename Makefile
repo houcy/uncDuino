@@ -30,11 +30,11 @@ setupTargetFolder: #Makes the folder, copies Node Webkit
 nwjs:
 	mkdir -p nwjs
 	@echo "=====> Downloading Node Webkit for Windows"
-	cd nwjs && wget "https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-win-ia32.zip"
+	cd nwjs && wget https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-win-ia32.zip
 	cd nwjs && unzip nwjs-${NWVERSION}-win-ia32.zip
 	rm nwjs/nwjs-${NWVERSION}-win-ia32.zip
 	@echo "=====> Downloading Node Webkit for Linux"
-	cd nwjs && wget "https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-linux-x64.tar.gz"
+	cd nwjs && wget https://dl.nwjs.io/${NWVERSION}/nwjs-${NWVERSION}-linux-x64.tar.gz
 	cd nwjs && tar zxf nwjs-${NWVERSION}-linux-x64.tar.gz
 	rm nwjs/nwjs-${NWVERSION}-linux-x64.tar.gz
 
