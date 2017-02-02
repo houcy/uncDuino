@@ -38,7 +38,13 @@ nwjs:
 	cd nwjs && tar zxf nwjs-${NWVERSION}-linux-x64.tar.gz
 	rm nwjs/nwjs-${NWVERSION}-linux-x64.tar.gz
 
-initialSetup: nwjs arduinoIDE
+packingSetup: nwjs arduinoIDE
+
+testingSetup:
+	bower install
+
+test:
+	firefox test/index.html
 
 arduinoIDE:
 	mkdir -p arduinoIDE/
@@ -75,4 +81,4 @@ clean: # CAREFULLY... Will remove arduinoIDE, will need to install everything ag
 	rm -rf closure-library
 	rm -rf ${COMPILEDFOLDER}
 
-.PHONY: copyBlockly
+.PHONY: copyBlockly test

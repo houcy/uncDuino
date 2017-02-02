@@ -1,0 +1,24 @@
+{
+  "name": "uncduino",
+  "version": "1.0.8",
+  "homepage": "https://github.com/uncmasmas/uncduino",
+  "authors": [
+    "Marcos Gomez <markitosja243@gmail.com>"
+  ],
+  "description": "Block based IDE for children for Arduino Robots",
+  "main": "src/index.html",
+  "keywords": [
+    "blocks",
+    "teaching",
+    "programming"
+  ],
+  "license": "GPL-3.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -4,3 +4,4 @@ closure-library/*
 compiled/
 nwjs/
 arduinoIDE/
+bower_components/

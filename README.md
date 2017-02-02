@@ -43,7 +43,7 @@ Explanation:
 
 > Important note: for now, **the compiling process** can only be performed from UNIX sistems (like linux or Mac).
 
-1. Just **the first time**, download what you need using command `make initialSetup`. This will download NodeWebkit and ArduinoIDE versions for Linux and Windows.
+1. Just **the first time**, download what you need using command `make packingSetup`. This will download NodeWebkit and ArduinoIDE versions for Linux and Windows.
 
 From there, to make executables you must:
 

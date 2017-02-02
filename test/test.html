@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tests UNCDuino</title>
+  <link rel="stylesheet" media="all" href="../node_modules/mocha/mocha.css">
+</head>
+<body>
+  <div id="mocha"><p><a href=".">Index</a></p></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+	<link href="../src/index.html" rel="import">
+  <script src="../node_modules/mocha/mocha.js"></script>
+	<iframe id="uncduino" src="../src/index.html"></iframe>
+  <script src="test.js"></script>
+  <script>mocha.run();</script>
+</body>
+</html>
