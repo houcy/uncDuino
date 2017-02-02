@@ -96,7 +96,7 @@ Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
       return 'arduino_debug.exe';
     },
     comando: function(){
-      return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board ' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+      return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board ' + Blockly.Arduino.configuracion.placa.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
     },
     inicializar: function(){
       Arduino.puerto = "COM1";
@@ -113,7 +113,7 @@ Arduino.EnviadorLinux.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
       return 'arduino';
     },
     comando: function(){
-        return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board ' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+        return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board ' + Blockly.Arduino.configuracion.placa.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
     },
     inicializar: function(){
       Arduino.puerto = "ttyUSB0";
@@ -159,9 +159,6 @@ Arduino.placas.nano = new Arduino.Placa("arduino:avr:nano");
 Arduino.placas.nano.pinM0 = '3, 4, 2';
 Arduino.placas.nano.pinM1 = '6, 5, 7';
 
-// Placa Default
-Arduino.placaElegida = Arduino.placas.duinobot23;
-
 ///////////////////////////////////////////////////////////////
 // Robots
 ///////////////////////////////////////////////////////////////
@@ -175,25 +172,13 @@ Arduino.robots.multiploN6 = Arduino.robots.multiploN6MAX; //Cambiar por new Robo
 // Multiplo Tomy
 Arduino.robots.tomy = new Arduino.Robot(22,20,6); //ancho largo y distanciaDelEjeAlFrente
 
-// Robot elegido:
-Arduino.robotElegido = Arduino.robots.multiploN6MAX;
-
 ///////////////////////////////////////////////////////////////
 // Configuracion
 ///////////////////////////////////////////////////////////////
 
-// Nota: esto debe estar actualizado con la configuración por defecto en index.html
-// para tener una buena experiencia de usuario.
 Blockly.Arduino.configuracion = {
-    placa: Arduino.placaElegida,
-    robot: Arduino.robotElegido,
-    pinIR: "A0",
-    pinUS: "A1",
-    pinLI: "A2",
-    pinLD: "A3",
-    distanciaPorPaso: 20, //en centímetros
-    esperaEntreInstrucciones: 2000, //en milisegundos
-    correccionDistanciaDeteccion: 0, // para el ultrasonido
+	robot: Arduino.robots.multiploN6MAX
+		//para tener un objeto robot seteado, no importa el default porque se sobreescribe al iniciar la app.
 };
 
 ///////////////////
@@ -211,8 +196,8 @@ function guardarConfig(){
     mapFromDom(["pinIR", "pinUS", "pinLI", "pinLD"],Blockly.Arduino.configuracion);
     mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones", "correccionDistanciaDeteccion"],Blockly.Arduino.configuracion,parseInt);
     Blockly.Arduino.configuracion.placa = Arduino.placas[document.getElementById('placa').value];
-    Arduino.robotElegido.velocidadMotores = parseInt(document.getElementById("potenciaMotores").value);
-    Arduino.robotElegido.ancho = parseInt(document.getElementById("anchoRobot").value);
+    Blockly.Arduino.configuracion.robot.velocidadMotores = parseInt(document.getElementById("potenciaMotores").value);
+    Blockly.Arduino.configuracion.robot.ancho = parseInt(document.getElementById("anchoRobot").value);
     Arduino.puerto = document.getElementById('puerto').value;
 }
 
