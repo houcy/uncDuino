@@ -32,7 +32,7 @@ Blockly.Blocks['n6_move_foward'] = {
         .appendField(new Blockly.FieldImage("media/images/avanzar2.png", 64, 64))
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip('Avanza 20 cm :)');
+    this.setTooltip('AVANZAR');
   }
 };
 
@@ -44,7 +44,7 @@ Blockly.Blocks['n6_move_backward'] = {
         .appendField(new Blockly.FieldImage("media/images/retroceder.png", 64, 64))
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip('Retrocede 20 cm :)');
+    this.setTooltip('RETROCEDER');
   }
 };
 
@@ -57,7 +57,7 @@ Blockly.Blocks['n6_turn_left'] = {
         .appendField(new Blockly.FieldImage("media/images/girar_izquierda2.png", 64, 64))
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip('Gira <-');
+    this.setTooltip('GIRAR A LA DERECHA');
   }
 };
 
@@ -69,7 +69,7 @@ Blockly.Blocks['n6_turn_right'] = {
         .appendField(new Blockly.FieldImage("media/images/girar_derecha2.png", 64, 64))
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip('Gira ->');
+    this.setTooltip('GIRAR A LA IZQUIERDA');
 	//this.setMovable(false);
   }
 };
@@ -107,12 +107,12 @@ Blockly.Blocks['run_button_push'] = {
   helpUrl: '',
   init: function() {
     //this.setHelpUrl('http://www.example.com/');
-    this.setColour(160);
+    this.setColour(20);
     this.appendStatementInput("IF")
-        .appendTitle(new Blockly.FieldImage("media/images/boton1.png", 30, 30));
+        .appendTitle(new Blockly.FieldImage("media/images/botonT.png", 64, 64));
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip('Si presionamos el botón');
+    this.setTooltip('SI PRESIONAMOS EL BOTÓN');
   }
 };
 
@@ -123,16 +123,16 @@ Blockly.Blocks['repeatForever'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
-    this.setColour(Blockly.Blocks.loops.HUE);
+    this.setColour(100);
     this.appendStatementInput('DO')
-        .appendTitle(new Blockly.FieldImage("media/images/repetir.png", 64, 64))
+        .appendTitle(new Blockly.FieldImage("media/images/repetirSiempreT.png", 64, 64))
         //.appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
-      return "Repetir siempre";
+      return "REPETIR SIEMPRE";
     });
   }
 };

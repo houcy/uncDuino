@@ -389,6 +389,7 @@
             <h3>Configuración Multiplo N6</h3>
             <label for="placa">Tipo de robot ó placa</label>
             <select id="placa">
+                <option value="nano">Tomy (nano)</option>
                 <option value="duinobot12">RobotGroup N6 (DuinoBot 1.2)</option>
                 <option value="duinobot23" selected>RobotGroup N6 (DuinoBot 2.3)</option>
             </select>
@@ -458,6 +459,45 @@
         </div>
 
         <xml id="toolbox" style="display: none">
+            <category name="BLOQUES SIMPLES">
+              <block type="n6_move_foward"></block>
+              <block type="n6_move_backward"></block>
+              <block type="n6_turn_left"></block>
+              <block type="n6_turn_right"></block>
+              <block type="repeatForever"></block>
+              <block type="run_button_push"></block>
+
+            </category>
+
+            <category name="Bloques Avanzados">
+              <block type="n6_move_motors_direction"></block>
+              <block type="n6_both_motors_move">
+                <value name="SPEED">
+                    <block type="math_number">
+                        <field name="NUM">0</field>
+                    </block>
+                </value>
+              </block>
+              <block type="n6_one_motor_move">
+                <value name="SPEED">
+                    <block type="math_number">
+                        <field name="NUM">0</field>
+                    </block>
+                </value>
+              </block>
+              <block type="base_delay_tomi">
+                <value name="DELAY_TIME">
+                    <block type="math_number">
+                        <field name="NUM">1000</field>
+                    </block>
+                </value>
+              </block>
+              <block type="n6_run_button"></block>
+              <block type="n6_ultrasonic_sensor"></block>
+
+            </category>
+
+
             <category name="Estructuras de Control">
               <block type="controls_if"></block>
                 <block type="base_delay">
@@ -470,70 +510,8 @@
                 <block type="controls_repeat"></block>
                 <block type="controls_whileUntil"></block>
             </category>
-            <category name="Lógica">
-                <block type="logic_boolean"></block>
-                <block type="logic_compare"></block>
-                <block type="logic_operation"></block>
-                <block type="logic_negate"></block>
-                <block type="logic_null"></block>
-            </category>
-            <category name="Matemática">
-                <block type="math_number"></block>
-                <block type="math_arithmetic"></block>
-            </category>
-            <category name="Texto">
-                <block type="text"></block>
-            </category>
-            <category name="Variables" custom="VARIABLE"></category>
-            <category name="Procedimientos y Funciones" custom="PROCEDURE"></category>
-            <sep></sep>
-            <category name="Entrada/Salida">
-                <block type="inout_highlow"></block>
-                <block type="inout_digital_write"></block>
-                <block type="inout_digital_read"></block>
-                <block type="inout_analog_write">
-                    <value name="NUM">
-                        <block type="math_number">
-                            <field name="NUM">0</field>
-                        </block>
-                    </value>
-                </block>
-                <block type="inout_analog_read"></block>
-                <block type="serial_print">
-                    <value name="CONTENT">
-                        <block type="text">
-                            <field name="TEXT"></field>
-                        </block>
-                    </value>
-                </block>
-                <block type="inout_tone">
-                    <value name="NUM">
-                        <block type="math_number">
-                            <field name="NUM">440</field>
-                        </block>
-                    </value>
-                </block>
-                <block type="inout_notone"></block>
-                <block type="inout_buildin_led"></block>
-            </category>
-            <category name="Bloques N6">
-              <block type="n6_one_motor_move"></block>
-              <block type="n6_both_motors_move"></block>
-              <block type="n6_ultrasonic_sensor"></block>
-              <block type="n6_run_button"></block>
-            </category>
-
-            <category name="Simples">
-              <block type="run_button_push"></block>
-              <block type="n6_move_foward"></block>
-              <block type="n6_move_backward"></block>
-              <block type="n6_turn_left"></block>
-              <block type="n6_turn_right"></block>
-              <block type="n6_melody"></block>
-              <block type="repeatForever"></block>
-              <block type="object_ducker"></block>
-            </category>
-
+            
+            
         </xml>
 				<script>guardarConfig();</script>
     </body>

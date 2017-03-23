@@ -26,6 +26,8 @@ goog.provide('Blockly.Arduino.n6_blocks');
 
 goog.require('Blockly.Arduino');
 
+
+
 Blockly.Arduino.n6_ultrasonic_sensor = function() {
   var dropdown_pin = this.getFieldValue('PIN');
   var dropdown_unit = this.getFieldValue('UNIT');
@@ -54,21 +56,76 @@ Blockly.Arduino.n6_infrared_sensor = function() {
   return code;
 };
 
+Blockly.Arduino.n6_move_motors_direction = function() {
+  var dropdown_direction = this.getFieldValue('DIRECTION');
+  var code = "";
+  var speed = 80;
+
+ // Blockly.Arduino.addMotorsSetUp();
+ Blockly.Arduino.addMotorsSetUp();
+  if(dropdown_direction==="forward")
+  {
+    Blockly.Arduino.definitions_['define_forward'] = "void avanzar()\n"+
+    "{\n"+
+    "  motor0.setSpeed("+speed+");\n"+
+    "  motor1.setSpeed("+speed+");\n"+
+    "}\n";
+    code="avanzar();\n";
+   }
+   else if (dropdown_direction==="right")
+   {
+     Blockly.Arduino.definitions_['define_right'] = "void girar_derecha()\n"+
+     "{\n"+
+     "  motor0.setSpeed(0);\n"+
+     "  motor1.setSpeed("+speed+");\n"+
+     "}\n\n";
+     code="girar_derecha();\n";
+   }
+   else if (dropdown_direction==="left")
+   {
+     Blockly.Arduino.definitions_['define_left'] = "void girar_izquierda()\n"+
+     "{\n"+
+     "  motor0.setSpeed("+speed+");\n"+
+     "  motor1.setSpeed(0);\n"+
+     "}\n\n";
+     code="girar_izquierda();\n";
+   }
+   else if (dropdown_direction==="backward")
+   {
+     Blockly.Arduino.definitions_['define_backward'] = "void retroceder()\n"+
+     "{\n"+
+     "  motor0.setSpeed(-"+speed+");\n"+
+     "  motor1.setSpeed(-"+speed+");\n"+
+     "}\n\n";
+     code="retroceder();\n";
+   }
+   else if (dropdown_direction==="stop")
+   {
+     Blockly.Arduino.definitions_['define_stop'] = "void frenar()\n"+
+     "{\n"+
+     "  motor0.setSpeed(0);\n"+
+     "  motor1.setSpeed(0);\n"+
+     "  delay(1000);\n"+
+     "}\n\n"
+     code="frenar();\n";
+   }
+   return code;  
+};
+
 Blockly.Arduino.n6_one_motor_move = function() {
   var motor = this.getFieldValue('MOTOR');
   var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || '127';
 
-  Blockly.Arduino.definitions_['define_DCmotor'] = '#include <DCMotor.h>\n';
-
+  Blockly.Arduino.addMotorsSetUp();
   if(motor === "motor0"){
- 	  Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
+ 	  //Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
     var code = "motor0.setSpeed("+speed+");\n";
   }
   else{
-    Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
+    //Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
     var code = "motor1.setSpeed("+speed+");\n";
   }
-  Blockly.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
+  //xº.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
 
   return code;
 };
@@ -78,11 +135,8 @@ Blockly.Arduino.n6_both_motors_move = function() {
   var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || '127';
   var code = "";
 
-  Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
-  Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
-  Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-
-  Blockly.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
+  Blockly.Arduino.addMotorsSetUp();
+  
 
   if(dropdown_direction==="forward")
   {
@@ -145,4 +199,10 @@ Blockly.Arduino.n6_run_button = function(){
 
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 
+};
+
+Blockly.Arduino.base_delay_tomi = function() {
+  var delay_time = Blockly.Arduino.valueToCode(this, 'DELAY_TIME', Blockly.Arduino.ORDER_ATOMIC) || '1000'
+  var code = 'delay(' + delay_time + ');\n';
+  return code;
 };
